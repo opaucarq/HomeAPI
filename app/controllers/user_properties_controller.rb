@@ -1,0 +1,2 @@
+class UserPropertiesController < ApplicationController
+end
