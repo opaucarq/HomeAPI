@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   # get post patch delete
   get "/users", to: "users#index"
   get "/users/:id", to: "users#show"
+  get "/properties", to: "properties#index"
 end
