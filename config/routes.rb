@@ -6,6 +6,10 @@ Rails.application.routes.draw do
   # get post patch delete
   get "/users", to: "users#index"
   get "/users/:id", to: "users#show"
+
+  post "/login", to: "sessions#create"
+  delete "/logout", to: "sessions#destroy"
+
   get "/properties", to: "properties#index"
   get "/properties/:id", to: "properties#show"
   post "/properties", to: "properties#create"
