@@ -33,5 +33,12 @@ module Project
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins "*" # Permite el acceso desde cualquier origen. Puedes especificar dominios específicos aquí.
+        resource "*", headers: :any, methods: %i[get post put patch delete options head]
+      end
+    end
   end
 end
