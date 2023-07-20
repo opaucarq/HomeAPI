@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
     auth_token = request.headers["Authorization"]
     @current_user = User.find_by(auth_token:)
     p @current_user
+    puts "------------------------------------"
     render json: { error: "No autorizado." }, status: :unauthorized unless @current_user
   end
 

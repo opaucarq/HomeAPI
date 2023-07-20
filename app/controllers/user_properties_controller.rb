@@ -1,15 +1,20 @@
 class UserPropertiesController < ApplicationController
-  before_action :require_login
+  before_action :authenticate_user
 
-  def tu_accion_protegida
-    # Resto del código para la acción protegida...
+  def index
+    authenticate_user
+    render json: @current_user.properties
   end
 
   private
 
-  def require_login
-    unless session[:user_id]
-      redirect_to login_path, alert: 'Debes iniciar sesión para acceder a esta página.'
-    end
+  def authenticate_user
+    auth_token = request.headers["Authorization"]
+    @current_user = User.find_by(auth_token:)
+    puts "//////////////////////////////////////"
+    p @current_user
+    return if @current_user
+
+    render json: { error: "No autorizado." }, status: :unauthorized
   end
 end
