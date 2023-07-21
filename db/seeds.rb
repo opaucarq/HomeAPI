@@ -46,28 +46,28 @@ data = {
 
 
 property1 = Property.create(
-  operation: "Venta", address: "Calle 123, Ciudad A", price: 250000, maintenance: 200, pets: true, bedrooms: 3, bathrooms: 2, area: 150, description: "Hermosa casa en venta con amplio jardín.")
+  operation: "Venta", address: "Calle 123, Ciudad A",category:"Department", price: 250000, maintenance: 200, pets: true, bedrooms: 3, bathrooms: 2, area: 150, description: "Hermosa casa en venta con amplio jardín.")
 
 property2 = Property.create(
-  operation: "Renta", address: "Avenida XYZ, Ciudad B", price: 1200, maintenance: 100, pets: false, bedrooms: 2,  bathrooms: 1, area: 80, description: "Apartamento en renta cerca del centro comercial.")
+  operation: "Renta", address: "Avenida XYZ, Ciudad B",category:"Home", price: 1200, maintenance: 100, pets: false, bedrooms: 2,  bathrooms: 1, area: 80, description: "Apartamento en renta cerca del centro comercial.")
 
 property3 = Property.create(
-  operation: "Venta", address: "Calle Principal, Ciudad C", price: 180000, maintenance: 150, pets: true, bedrooms: 4, bathrooms: 3, area: 200, description: "Casa en venta con piscina y vista al mar.")
+  operation: "Venta", address: "Calle Principal, Ciudad C", category:"Home",price: 180000, maintenance: 150, pets: true, bedrooms: 4, bathrooms: 3, area: 200, description: "Casa en venta con piscina y vista al mar.")
 
 property4 = Property.create(
-  operation: "Renta", address: "Avenida Central, Ciudad D", price: 900, maintenance: 80, pets: false, bedrooms: 1, bathrooms: 1, area: 60, description: "Estudio en renta amueblado en zona céntrica.")
+  operation: "Renta", address: "Avenida Central, Ciudad D", category:"Home",price: 900, maintenance: 80, pets: false, bedrooms: 1, bathrooms: 1, area: 60, description: "Estudio en renta amueblado en zona céntrica.")
 
 property5 = Property.create(
-  operation: "Venta", address: "Calle 456, Ciudad A", price: 300000, maintenance: 250, pets: true, bedrooms: 5, bathrooms: 4, area: 300, description: "Gran casa de lujo en venta con piscina y jardín.")
+  operation: "Venta", address: "Calle 456, Ciudad A", category:"Department",price: 300000, maintenance: 250, pets: true, bedrooms: 5, bathrooms: 4, area: 300, description: "Gran casa de lujo en venta con piscina y jardín.")
 
 property6 = Property.create(
-  operation: "Renta", address: "Avenida YZX, Ciudad B", price: 1600, maintenance: 120, pets: false, bedrooms: 3, bathrooms: 2, area: 120, description: "Casa en renta con amplio patio y cochera.")
+  operation: "Renta", address: "Avenida YZX, Ciudad B",category:"Department", price: 1600, maintenance: 120, pets: false, bedrooms: 3, bathrooms: 2, area: 120, description: "Casa en renta con amplio patio y cochera.")
 
 property7 = Property.create(
-  operation: "Venta", address: "Calle Secundaria, Ciudad C", price: 210000, maintenance: 180, pets: true, bedrooms: 4, bathrooms: 3, area: 220, description: "Casa en venta con acabados de primera calidad.")
+  operation: "Venta", address: "Calle Secundaria, Ciudad C", category:"Home",price: 210000, maintenance: 180, pets: true, bedrooms: 4, bathrooms: 3, area: 220, description: "Casa en venta con acabados de primera calidad.")
 
 property8 = Property.create(
-  operation: "Renta", address: "Avenida Periférica, Ciudad D", price: 1100, maintenance: 90, pets: false, bedrooms: 2, bathrooms: 1, area: 90, description: "Departamento en renta con vista panorámica.")
+  operation: "Renta", address: "Avenida Periférica, Ciudad D", category:"Department",price: 1100, maintenance: 90, pets: false, bedrooms: 2, bathrooms: 1, area: 90, description: "Departamento en renta con vista panorámica.")
 
 attach_local_photos(property1, data[:prop1][:photos])
 attach_local_photos(property2, data[:prop2][:photos])
@@ -82,17 +82,15 @@ puts "Seeding user_properties"
 users = User.all
 
 users.each do |user|
-  n = rand(4..8)
+  n = rand(3..6)
   properties = Property.all.sample(n)
   properties.each do |property|
     active = [true, false].sample
-    closed = [true, false].sample
     favorite = [true, false].sample
     contacted = [true, false].sample
     user.user_properties.create(
       property: property,
       active: active,
-      closed: closed,
       favorite: favorite,
       contacted: contacted
     )
