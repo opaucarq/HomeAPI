@@ -58,9 +58,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_20_172142) do
   end
 
   create_table "user_properties", force: :cascade do |t|
-    t.boolean "active"
-    t.boolean "favorite"
-    t.boolean "contacted"
+    t.boolean "active", default: true
+    t.boolean "favorite", default: false
+    t.boolean "contacted", default: false
     t.bigint "user_id", null: false
     t.bigint "property_id", null: false
     t.datetime "created_at", null: false

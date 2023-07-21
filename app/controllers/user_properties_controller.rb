@@ -23,12 +23,16 @@ class UserPropertiesController < ApplicationController
     authenticate_user
     id = params[:id]
 
-    p @current_user.properties
     property = @current_user.properties.find_by(id:)
     if property
       @photo_urls = property.photos.map { |photo| rails_blob_url(photo) }
       result = property.attributes.merge(photos: @photo_urls)
-      render json: result
+      result.except!("created_at", "updated_at")
+
+      user_props = @current_user.user_properties
+      prop_data = user_props.find_by(property:).slice("active", "favorite", "contacted")
+      res = result.merge(property: prop_data)
+      render json: res
     else
       render json: { message: "Property not found" }, status: :not_found
     end
