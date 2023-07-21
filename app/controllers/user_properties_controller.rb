@@ -3,14 +3,13 @@ class UserPropertiesController < ApplicationController
 
   def index
     authenticate_user
-    props = @current_user.properties
     properties = @current_user.properties
     user_props = @current_user.user_properties
     properties = properties.map do |property|
       photo_urls = property.photos.map { |photo| rails_blob_url(photo) }
       prop_data = user_props.find_by(property:).slice("active", "favorite", "contacted")
 
-      property_attributes = property.attributes.except("created_at", "updated_at", "id")
+      property_attributes = property.attributes.except("created_at", "updated_at")
 
       property_data = property_attributes.merge(photos: photo_urls, property: prop_data)
 
@@ -35,7 +34,25 @@ class UserPropertiesController < ApplicationController
     end
   end
 
+  def update
+    id = params[:id]
+    property = @current_user.user_properties.find_by(property_id: id)
+    puts "*********************"
+    p user_property_params
+    if property.nil?
+      render json: { message: "Property not found" }, status: :not_found
+    elsif property.update(user_property_params)
+      render json: property
+    else
+      render json: property.errors.full_messages, status: :unprocessable_entity
+    end
+  end
+
   private
+
+  def user_property_params
+    params.require(:user_property).permit(:active, :favorite, :contacted)
+  end
 
   def authenticate_user
     auth_token = request.headers["Authorization"]

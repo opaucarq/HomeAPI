@@ -41,22 +41,11 @@ class PropertiesController < ApplicationController
     property = @current_user.properties.find_by(id:)
 
     if property.nil?
-      render json: { message: "Company not found" }, status: :not_found
+      render json: { message: "Property not found" }, status: :not_found
     elsif property.update(property_params)
       render json: property
     else
       render json: property.errors.full_messages, status: :unprocessable_entity
-    end
-  end
-
-  def destroy
-    id = params[:id]
-    property = Property.find_by(id:)
-    if property.nil?
-      render json: { message: "Company not found" }, status: :not_found
-    else
-      property.destroy
-      render json: property, status: :no_content
     end
   end
 
