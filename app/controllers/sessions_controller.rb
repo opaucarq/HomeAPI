@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
 
     if user&.authenticate(params[:password])
       user.regenerate_auth_token
-      render json: { message: user, auth_token: user.auth_token }
+      render json: { user: user, auth_token: user.auth_token }
     else
 
       render json: { error: "Credenciales inválidas." }, status: :unauthorized
