@@ -45,6 +45,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_20_172142) do
   create_table "properties", force: :cascade do |t|
     t.text "operation"
     t.text "address"
+    t.text "category"
     t.integer "price"
     t.integer "maintenance"
     t.boolean "pets"
@@ -58,7 +59,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_20_172142) do
 
   create_table "user_properties", force: :cascade do |t|
     t.boolean "active"
-    t.boolean "closed"
     t.boolean "favorite"
     t.boolean "contacted"
     t.bigint "user_id", null: false

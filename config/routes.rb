@@ -4,17 +4,20 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   # get post patch delete
-  get "/users", to: "users#index"
-  get "/users/:id", to: "users#show"
 
-  get "/props", to: "user_properties#index"
+  get "/profile", to: "users#show"
+  post "/users", to: "users#create"
 
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
 
+  get "/props", to: "user_properties#index"
+  get "/props/:id", to: "user_properties#show"
+
+  post "/props", to: "properties#create"
+  patch "/props/:id", to: "properties#update"
+  delete "/props/:id", to: "properties#destroy"
+
   get "/properties", to: "properties#index"
   get "/properties/:id", to: "properties#show"
-  post "/properties", to: "properties#create"
-  patch "/properties/:id", to: "properties#update"
-  delete "/properties/:id", to: "properties#destroy"
 end
