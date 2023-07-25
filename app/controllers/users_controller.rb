@@ -16,7 +16,7 @@ class UsersController < ApplicationController
     user = User.new(user_params)
 
     if user.save
-      render json: { message: "Usuario creado exitosamente." }
+      render json: { user: user, auth_token: user.auth_token, message: "Usuario creado exitosamente." }
     else
       render json: { error: user.errors.full_messages.join(", ") }, status: :unprocessable_entity
     end
