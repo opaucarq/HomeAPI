@@ -102,9 +102,8 @@ puts "Seeding user_properties"
 users = User.all
 
 users.each do |user|
-  n = rand(4..8)
   if user.role == 1
-    n = rand(10..20)
+    n = rand(4..8)
   else
     n = 40
   end
