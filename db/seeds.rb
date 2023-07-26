@@ -35,13 +35,56 @@ end
 
 images = (1..20).map { |i| "img%02d.jpg" % i }
 
+addresses = [
+  "Av. Arequipa 123, San Isidro, Lima",
+  "Jr. Camaná 456, Cercado de Lima, Lima",
+  "Calle Las Begonias 789, San Borja, Lima",
+  "Av. La Molina 321, La Molina, Lima",
+  "Av. Brasil 987, Pueblo Libre, Lima",
+  "Jr. Los Jazmines 654, Lince, Lima",
+  "Av. Los Próceres 159, San Juan de Lurigancho, Lima",
+  "Calle Los Cedros 753, Surco, Lima",
+  "Av. Los Constructores 852, Ate, Lima",
+  "Jr. Los Nogales 456, Magdalena del Mar, Lima",
+  "Av. Javier Prado Este 753, San Isidro, Lima",
+  "Jr. De la Unión 951, Cercado de Lima, Lima",
+  "Calle Los Rosales 456, San Borja, Lima",
+  "Av. Flora Tristán 852, La Molina, Lima",
+  "Av. La Marina 159, Pueblo Libre, Lima",
+  "Jr. Los Sauces 357, Lince, Lima",
+  "Av. Los Álamos 753, San Juan de Lurigancho, Lima",
+  "Calle Los Girasoles 852, Surco, Lima",
+  "Av. Los Alcázares 456, Ate, Lima",
+  "Jr. Los Nísperos 159, Magdalena del Mar, Lima",
+  "Av. Salaverry 753, Jesús María, Lima",
+  "Jr. De la Unión 951, Breña, Lima",
+  "Calle Los Claveles 456, San Miguel, Lima",
+  "Av. Petit Thouars 852, Lince, Lima",
+  "Av. Huáscar 159, El Agustino, Lima",
+  "Jr. Los Cipreses 357, San Juan de Miraflores, Lima",
+  "Av. Los Rosales 753, Chorrillos, Lima",
+  "Calle Los Ficus 852, San Juan de Lurigancho, Lima",
+  "Av. Los Robles 456, San Borja, Lima",
+  "Jr. Las Orquídeas 159, Surco, Lima",
+  "Av. Los Naranjos 753, Santa Anita, Lima",
+  "Jr. Los Pinos 951, Cercado de Lima, Lima",
+  "Calle Los Lirios 456, Barranco, Lima",
+  "Av. Santa Cruz 852, Santiago de Surco, Lima",
+  "Av. Los Laureles 159, La Victoria, Lima",
+  "Jr. Los Jardines 357, Chorrillos, Lima",
+  "Av. Los Claveles 753, Miraflores, Lima",
+  "Calle Los Tulipanes 852, San Juan de Lurigancho, Lima",
+  "Av. Los Eucaliptos 456, Callao, Lima",
+  "Jr. Las Azucenas 159, San Isidro, Lima"
+]
+
 (1..40).each do |i|
   selected_images = images.sample(5)
   operation = ["Venta","Renta"].sample
   category = ["Department","Home"].sample
   property = Property.create(
     operation: operation, 
-    address: "Calle #{i}, Ciudad #{('A'..'D').to_a.sample}",
+    address: addresses[i-1],
     category: category,
     price: property == "Venta" ? rand(20000..50000) : rand(2000..5000), 
     maintenance: rand(50..300),
@@ -59,7 +102,12 @@ puts "Seeding user_properties"
 users = User.all
 
 users.each do |user|
-  n = rand(10..20)
+  n = rand(4..8)
+  if user.role == 1
+    n = rand(10..20)
+  else
+    n = 40
+  end
   properties = Property.all.sample(n)
   properties.each do |property|
     active = [true, false].sample
