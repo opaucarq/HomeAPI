@@ -23,10 +23,15 @@ class PropertiesController < ApplicationController
   end
 
   def create
-    new_property = Property.new(property_params)
-    # agregar lógica para el rol
-
+    # p property_params
+    new_property = Property.new(property_params.except(:photos))
+    photos = params[:property][:photos]
     if new_property.save
+      if photos
+        photos.each do |photo|
+          new_property.photos.attach(photo)
+        end
+      end
       @current_user.user_properties.create(
         property: new_property
       )
@@ -53,7 +58,7 @@ class PropertiesController < ApplicationController
 
   def property_params
     params.require(:property).permit(:operation, :address, :price, :maintenance, :pets, :bedrooms,
-                                     :bathrooms, :area, :description, photos: [])
+                                     :bathrooms, :area, :description, :category, photos: [])
   end
 
   def authenticate_user
